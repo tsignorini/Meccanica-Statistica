@@ -1,0 +1,219 @@
+/* --- Impostazioni Generali e Variabili --- */
+:root {
+    --bg-color: #f8fafc;
+    --text-color: #1e293b;
+    --text-light: #64748b;
+    --accent-color: #0f172a;
+    --accent-hover: #2563eb;
+    --card-bg: #ffffff;
+    --border-color: #e2e8f0;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    line-height: 1.6;
+    font-size: 17px;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- Header e Footer --- */
+.main-header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 40px 0;
+    margin-bottom: 40px;
+}
+
+.main-header h1 {
+    font-size: 2.2rem;
+    color: var(--accent-color);
+    margin-bottom: 8px;
+}
+
+.main-header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+    transition: color 0.2s ease;
+}
+
+.back-link:hover {
+    color: var(--accent-hover);
+}
+
+.main-footer {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 60px;
+}
+
+/* --- Sezioni Corsi (Home Page) --- */
+.course-section h2 {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+}
+
+.section-subtitle {
+    color: var(--text-light);
+    margin-bottom: 25px;
+}
+
+.courses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Struttura della barra orizzontale del corso */
+.course-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.course-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent-hover);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+.course-card-content h3 {
+    font-size: 1.3rem;
+    color: var(--accent-color);
+    margin-bottom: 6px;
+}
+
+.course-card:hover .course-card-content h3 {
+    color: var(--accent-hover);
+}
+
+.course-card-content p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.course-card-arrow {
+    font-size: 1.5rem;
+    color: var(--text-light);
+    transition: transform 0.2s ease, color 0.2s ease;
+    padding-left: 15px;
+}
+
+.course-card:hover .course-card-arrow {
+    color: var(--accent-hover);
+    transform: translateX(4px);
+}
+
+/* --- Griglia Lezioni (Pagina Corso) --- */
+.lessons-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media(min-width: 600px) {
+    .lessons-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.lesson-box {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lesson-box:hover {
+    border-color: var(--text-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.lesson-date {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-light);
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.lesson-box h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--accent-color);
+}
+
+.lesson-box p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.read-more {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--accent-hover);
+}
+
+/* --- Contenuto Articolo (Pagina Lezione) --- */
+.lesson-meta {
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.article-content h2 {
+    font-size: 1.4rem;
+    margin: 35px 0 15px 0;
+    color: var(--accent-color);
+}
+
+.article-content p {
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+/* Stile per formule matematiche centrate per dare respiro */
+.MathJax_Display {
+    margin: 25px 0 !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
