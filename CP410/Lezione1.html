@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processi di ramificazione e le origini della misura — Note di Teoria della Probabilità</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FAFAF8;
+    --ink: #1C1C22;
+    --ink-soft: #55555f;
+    --accent: #1D3461;
+    --accent-soft: #E8ECF3;
+    --rule: #DCDCD2;
+    --serif: 'Source Serif 4', Georgia, serif;
+    --sans: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.68;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container{
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ---------- Header ---------- */
+
+  header.masthead{
+    padding: 5rem 0 3.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.1rem;
+  }
+
+  h1.title{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(2.1rem, 4.4vw, 3rem);
+    line-height: 1.12;
+    margin: 0 0 1rem;
+    max-width: 780px;
+  }
+
+  .dek{
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 1.15rem;
+    max-width: 640px;
+    margin: 0;
+  }
+
+  /* ---------- Structure ---------- */
+
+  main{ padding-top: 3rem; padding-bottom: 5rem; }
+
+  section.part{ margin-bottom: 5rem; }
+
+  .part-heading{
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    margin-bottom: 2.2rem;
+  }
+
+  .part-heading .roman{
+    font-family: var(--mono);
+    font-size: 0.95rem;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+  }
+
+  .part-heading h2{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.85rem;
+    margin: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+  }
+
+  h3.sub{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 1.28rem;
+    margin: 2.6rem 0 1rem;
+    color: var(--ink);
+  }
+
+  .prose{ max-width: 660px; }
+
+  .prose p{ margin: 0 0 1.15rem; }
+
+  .prose ul, .prose ol{ padding-left: 1.4rem; margin: 0 0 1.15rem; }
+  .prose li{ margin-bottom: 0.5rem; }
+
+  /* ---------- Margin notes ---------- */
+
+  .marginnote{
+    float: right;
+    clear: right;
+    width: 270px;
+    margin-right: -330px;
+    margin-top: 0.15rem;
+    margin-bottom: 0.6rem;
+    font-family: var(--sans);
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    border-left: 2px solid var(--accent);
+    padding-left: 0.9rem;
+  }
+
+  .marginnote .tag{
+    display:block;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+
+  @media (max-width: 1180px){
+    .marginnote{
+      float: none;
+      width: auto;
+      margin: 1.2rem 0;
+      background: var(--accent-soft);
+      border-left: 3px solid var(--accent);
+      padding: 0.8rem 1rem;
+      border-radius: 0 4px 4px 0;
+    }
+  }
+
+  /* ---------- Math blocks ---------- */
+
+  .eq{
+    margin: 1.3rem 0;
+    overflow-x: auto;
+  }
+
+  .eq.center{ text-align: center; }
+
+  .callout{
+    background: var(--accent-soft);
+    border-radius: 6px;
+    padding: 1.1rem 1.3rem;
+    margin: 1.4rem 0;
+    font-size: 0.97rem;
+  }
+
+  .callout .tag{
+    display:block;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .def{
+    border-left: 3px solid var(--ink);
+    padding-left: 1.2rem;
+    margin: 1.6rem 0;
+  }
+
+  .def .tag{
+    display:block;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 0.92rem;
+    margin-bottom: 0.35rem;
+  }
+
+  /* ---------- Diagrams ---------- */
+
+  figure{
+    margin: 2rem 0;
+    max-width: 720px;
+  }
+
+  figure svg{ width: 100%; height: auto; display: block; }
+
+  figcaption{
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-top: 0.6rem;
+    line-height: 1.5;
+  }
+
+  hr.divider{
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 3rem 0;
+  }
+
+  footer{
+    padding: 2.5rem 0 4rem;
+    border-top: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+
+  strong{ font-weight: 600; }
+
+  @media (max-width: 640px){
+    body{ font-size: 16.5px; }
+    header.masthead{ padding: 3rem 0 2.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="container">
+    <div class="eyebrow">Teoria della Probabilità — Note del corso</div>
+    <h1 class="title">Processi di ramificazione e le origini della misura</h1>
+    <p class="dek">Dalla crescita di una colonia di batteri alla probabilità che si estingua, fino alle strutture — algebre e σ-algebre — su cui la teoria della probabilità viene costruita.</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ======================= PARTE I ======================= -->
+  <section class="part" id="galton-watson">
+    <div class="part-heading">
+      <span class="roman">Parte I</span>
+      <h2>Il processo di Galton–Watson</h2>
+    </div>
+
+    <div class="prose">
+      <p>Immaginiamo una colonia di batteri che si origina da un unico individuo, il <em>capostipite</em>. Ogni batterio, prima di scomparire, produce un numero aleatorio di discendenti: può non riprodursi affatto, così come può generarne molti. Ogni nuovo individuo si comporta allo stesso modo dei suoi predecessori, in maniera indipendente dagli altri.</p>
+
+      <p>La domanda che ci poniamo non riguarda una singola generazione, ma il comportamento della colonia <strong>a lungo termine</strong>: si estinguerà con certezza, oppure esiste una probabilità concreta che sopravviva per sempre? È sorprendente che una risposta precisa dipenda da una sola quantità: il numero medio di figli per individuo.</p>
+
+      <p>Formalizziamo. Sia \(X\) la variabile aleatoria che descrive il numero di figli di un singolo individuo, a valori in \(\mathbb{Z}_+ = \{0,1,2,\dots\}\), e supponiamo</p>
+      <div class="eq center">\(\mathbb{P}(X=0) > 0\)</div>
+      <p>cioè che esista una probabilità positiva che un individuo non si riproduca — altrimenti la colonia non potrebbe mai estinguersi, e il problema perderebbe interesse.</p>
+    </div>
+
+    <h3 class="sub">La funzione generatrice</h3>
+    <div class="prose">
+      <p>Lo strumento chiave per studiare \(X\) — e, come vedremo, l'intera evoluzione della colonia — è la sua <strong>funzione generatrice di probabilità</strong>:</p>
+      <div class="eq center">\(f : [0,1] \longrightarrow [0,1], \qquad f(v) = \mathbb{E}\!\left[v^X\right] = \sum_{k \ge 0} v^k\, \mathbb{P}(X=k)\)</div>
+      <div class="marginnote"><span class="tag">Perché funziona</span>La somma è ristretta a \(k \ge 0\) proprio perché \(X\) è a valori in \(\mathbb{Z}_+\): ogni possibile valore di \(X\) contribuisce con il proprio peso di probabilità a un diverso coefficiente della serie di potenze in \(v\). La funzione \(f\) "codifica" l'intera distribuzione di \(X\) in un unico oggetto analitico.</div>
+
+      <p>Due proprietà di \(f\) saranno usate costantemente:</p>
+      <ul>
+        <li>Valutando in \(v=1\): \(f(1) = \sum_{k\ge0} \mathbb{P}(X=k) = 1\), poiché si somma su tutti i valori che \(X\) può assumere.</li>
+        <li>Derivando rispetto a \(v\): \(f'(v) = \mathbb{E}\!\left[X\, v^{X-1}\right]\), e in particolare \(f'(1) = \mathbb{E}[X] =: \mu\), il numero medio di figli per individuo — la quantità che, come vedremo, decide il destino della colonia.</li>
+      </ul>
+    </div>
+
+    <h3 class="sub">La popolazione dopo n generazioni</h3>
+    <div class="prose">
+      <p>Indichiamo con \(Z_n\) il numero di individui presenti alla generazione \(n \ge 0\), con \(Z_0 = 1\) (il solo capostipite). Per costruire \(Z_n\) formalmente introduciamo una famiglia di variabili aleatorie indipendenti</p>
+      <div class="eq center">\(\left\{ X_r^{(m+1)} \;:\; m \ge 0,\; r \ge 1 \right\}\)</div>
+      <p>tutte con la stessa distribuzione di \(X\), dove \(X_r^{(m+1)}\) rappresenta il numero di figli dell'\(r\)-esimo individuo presente alla generazione \(m\) (l'indice \(m+1\) indica che questi figli saranno vivi, per definizione, alla generazione successiva).</p>
+
+      <div class="marginnote"><span class="tag">Nota</span>Se un individuo non ha discendenti, il corrispondente \(X_r^{(m+1)}\) vale semplicemente 0: la sua "linea" si estingue, ma questo non impedisce alle altre linee di continuare.</div>
+
+      <p>La popolazione alla generazione successiva si ottiene sommando i figli di tutti gli individui della generazione corrente:</p>
+      <div class="eq center">\(Z_{n+1} = X_1^{(n+1)} + X_2^{(n+1)} + \dots + X_{Z_n}^{(n+1)}\)</div>
+      <p>dove l'ultimo indice della somma, \(Z_n\), è a sua volta aleatorio: è il numero di individui prodotto dalla generazione precedente. Se \(Z_n = 0\), la somma è vuota e la colonia resta estinta per sempre.</p>
+
+      <figure>
+        <svg viewBox="0 0 620 300" xmlns="http://www.w3.org/2000/svg">
+          <text x="20" y="34" font-family="IBM Plex Mono" font-size="12" fill="#55555f">gen. 0</text>
+          <text x="20" y="150" font-family="IBM Plex Mono" font-size="12" fill="#55555f">gen. 1</text>
+          <text x="20" y="266" font-family="IBM Plex Mono" font-size="12" fill="#55555f">gen. 2</text>
+
+          <line x1="310" y1="46" x2="310" y2="110" stroke="#1D3461" stroke-width="1.4"/>
+          <circle cx="310" cy="30" r="15" fill="#FAFAF8" stroke="#1D3461" stroke-width="1.6"/>
+          <text x="310" y="34" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#1C1C22">Z₀=1</text>
+
+          <circle cx="310" cy="126" r="15" fill="#FAFAF8" stroke="#1D3461" stroke-width="1.6"/>
+          <text x="310" y="130" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="#1C1C22">X₁⁽¹⁾</text>
+
+          <line x1="310" y1="141" x2="160" y2="210" stroke="#1D3461" stroke-width="1.2"/>
+          <line x1="310" y1="141" x2="255" y2="210" stroke="#1D3461" stroke-width="1.2"/>
+          <line x1="310" y1="141" x2="365" y2="210" stroke="#1D3461" stroke-width="1.2"/>
+          <line x1="310" y1="141" x2="460" y2="210" stroke="#1D3461" stroke-width="1.2"/>
+
+          <circle cx="160" cy="226" r="15" fill="#FAFAF8" stroke="#1D3461" stroke-width="1.6"/>
+          <text x="160" y="230" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#1C1C22">X₁⁽²⁾</text>
+
+          <circle cx="255" cy="226" r="15" fill="#E8ECF3" stroke="#55555f" stroke-width="1.4" stroke-dasharray="2 2"/>
+          <text x="255" y="230" text-anchor="middle" font-family="IBM Plex Mono" font-size="8.3" fill="#55555f">X₂⁽²⁾=0</text>
+
+          <circle cx="365" cy="226" r="15" fill="#FAFAF8" stroke="#1D3461" stroke-width="1.6"/>
+          <text x="365" y="230" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#1C1C22">X₃⁽²⁾</text>
+
+          <circle cx="460" cy="226" r="15" fill="#FAFAF8" stroke="#1D3461" stroke-width="1.6"/>
+          <text x="460" y="230" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="#1C1C22">X₄⁽²⁾</text>
+
+          <text x="310" y="270" text-anchor="middle" font-family="Source Serif 4" font-style="italic" font-size="13" fill="#1C1C22">Z₂ = X₁⁽²⁾ + X₂⁽²⁾ + X₃⁽²⁾ + X₄⁽²⁾</text>
+        </svg>
+        <figcaption>Le quattro variabili della seconda generazione sono i figli dell'unico individuo della prima generazione: sono indipendenti e distribuite come \(X\). Uno di essi (tratteggiato) non si riproduce.</figcaption>
+      </figure>
+
+      <p>Definiamo la funzione generatrice di \(Z_n\) come \(f_n(v) = \mathbb{E}[v^{Z_n}]\) per \(n \ge 1\); si noti che \(f_1 = f\), poiché \(Z_1 = X_1^{(1)}\) ha esattamente la distribuzione di \(X\). Si dimostra (il risultato è centrale, anche se la dimostrazione viene rimandata) che le funzioni generatrici delle generazioni successive si ottengono per <strong>composizione</strong>:</p>
+      <div class="callout">
+        <span class="tag">Proposizione</span>
+        \(\displaystyle \forall n \ge 2, \ \forall v \in [0,1] \qquad f_n(v) = f_{n-1}\big(f(v)\big) = f\big(f_{n-1}(v)\big)\)
+        <p style="margin: 0.6rem 0 0; font-size:0.92rem;">dove \(f_n = \underbrace{f \circ f \circ \cdots \circ f}_{n \text{ volte}}\): la funzione generatrice della generazione \(n\) è l'\(n\)-esima iterata di \(f\).</p>
+      </div>
+      <p>Il fatto che la composizione ripetuta di \(f\) governi l'intera evoluzione della colonia è ciò che rende trattabile lo studio del suo comportamento asintotico.</p>
+    </div>
+
+    <h3 class="sub">La probabilità di estinzione</h3>
+    <div class="prose">
+      <p>Diciamo che la colonia si estingue se esiste una generazione, prima o poi, in cui il numero di individui si azzera. Definiamo dunque la <strong>probabilità di estinzione</strong>:</p>
+      <div class="eq center">\(\Pi = \mathbb{P}\big(\exists\, n \ge 1 \text{ tale che } Z_n = 0\big) = \mathbb{P}\!\left(\bigcup_{n \ge 1} \{Z_n = 0\}\right)\)</div>
+      <p>e, per ogni \(n \ge 1\), la probabilità che l'estinzione sia già avvenuta entro la generazione \(n\): \(\Pi_n = \mathbb{P}(Z_n = 0)\).</p>
+
+      <div class="marginnote"><span class="tag">Un dettaglio tecnico</span>Notiamo che \(f_n(0) = \mathbb{P}(Z_n=0) = \Pi_n\): nella serie che definisce \(f_n\), ogni termine con \(k \ge 1\) si annulla perché \(0^k=0\), mentre per convenzione si pone \(0^0=1\), lasciando sopravvivere solo il termine \(k=0\).</div>
+
+      <p>Grazie alla proposizione precedente possiamo scrivere una relazione ricorsiva per le \(\Pi_n\):</p>
+      <div class="eq center">\(\Pi_n = f_n(0) = f\big(f_{n-1}(0)\big) = f(\Pi_{n-1})\)</div>
+      <p>Gli insiemi \(\{Z_n = 0\}\) sono crescenti in \(n\) (una volta estinta, la colonia resta tale), quindi \(\Pi_n \to \Pi\) per \(n \to \infty\). Poiché \(f\) è continua, possiamo passare al limite in entrambi i membri della relazione ricorsiva, ottenendo l'equazione che caratterizza \(\Pi\):</p>
+      <div class="callout">
+        <span class="tag">Equazione di punto fisso</span>
+        \(\displaystyle \Pi = f(\Pi)\)
+        <p style="margin:0.6rem 0 0; font-size:0.92rem;">La probabilità di estinzione è un punto fisso della funzione generatrice \(f\).</p>
+      </div>
+
+      <p>Per individuare quale punto fisso sia \(\Pi\) è utile ricordare tre proprietà di \(f\), già incontrate o facilmente verificabili: \(f(1)=1\); \(f'(1) = \mu\); \(f(0) = \mathbb{P}(X=0) > 0\). Inoltre \(f\) è non decrescente, convessa e analitica su \([0,1]\) — proprietà ereditate direttamente dalla sua definizione come serie di potenze a coefficienti non negativi.</p>
+
+      <p>Queste condizioni bastano a determinare la forma qualitativa del grafico di \(f\) rispetto alla bisettrice \(y=v\), e con essa il numero di punti fissi in \([0,1]\):</p>
+
+      <figure>
+        <svg viewBox="0 0 640 320" xmlns="http://www.w3.org/2000/svg">
+          <text x="150" y="24" text-anchor="middle" font-family="IBM Plex Sans" font-weight="600" font-size="13.5" fill="#1C1C22">Caso μ &gt; 1</text>
+          <line x1="60" y1="270" x2="260" y2="270" stroke="#1C1C22" stroke-width="1.3"/>
+          <line x1="60" y1="270" x2="60" y2="60" stroke="#1C1C22" stroke-width="1.3"/>
+          <line x1="60" y1="270" x2="260" y2="70" stroke="#55555f" stroke-width="1.1" stroke-dasharray="3 3"/>
+          <path d="M60,192 C120,150 150,175 172,150 C205,120 235,90 260,70" fill="none" stroke="#1D3461" stroke-width="2.1"/>
+          <line x1="172" y1="150" x2="172" y2="270" stroke="#55555f" stroke-width="1" stroke-dasharray="2 2"/>
+          <circle cx="172" cy="150" r="3.4" fill="#1D3461"/>
+          <text x="60" y="288" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#55555f">0</text>
+          <text x="172" y="288" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#1D3461">Π</text>
+          <text x="260" y="288" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#55555f">1</text>
+          <text x="90" y="150" font-family="IBM Plex Mono" font-size="9.5" fill="#55555f">f(v)</text>
+
+          <text x="480" y="24" text-anchor="middle" font-family="IBM Plex Sans" font-weight="600" font-size="13.5" fill="#1C1C22">Caso μ ≤ 1</text>
+          <line x1="390" y1="270" x2="590" y2="270" stroke="#1C1C22" stroke-width="1.3"/>
+          <line x1="390" y1="270" x2="390" y2="60" stroke="#1C1C22" stroke-width="1.3"/>
+          <line x1="390" y1="270" x2="590" y2="70" stroke="#55555f" stroke-width="1.1" stroke-dasharray="3 3"/>
+          <path d="M390,192 Q500,150 590,70" fill="none" stroke="#1D3461" stroke-width="2.1"/>
+          <text x="390" y="288" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#55555f">0</text>
+          <text x="590" y="288" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#55555f">1</text>
+          <text x="420" y="150" font-family="IBM Plex Mono" font-size="9.5" fill="#55555f">f(v)</text>
+        </svg>
+        <figcaption>La bisettrice \(y=v\) è tratteggiata. A sinistra, quando \(\mu>1\) la curva convessa di \(f\) — che parte da \(f(0)>0\) — attraversa la bisettrice in un punto \(\Pi\) interno a \((0,1)\), oltre al punto fisso banale \(v=1\). A destra, quando \(\mu \le 1\), la pendenza in \(v=1\) non è sufficiente a far riattraversare la curva verso il basso: l'unico punto fisso in \([0,1]\) resta \(v=1\).</figcaption>
+      </figure>
+
+      <p>Il grafico permette di leggere direttamente la conclusione:</p>
+      <ul>
+        <li>Se \(\mu > 1\), allora \(\Pi < 1\): esiste una probabilità positiva che la colonia sopravviva indefinitamente, pari a \(1-\Pi\). Il punto fisso rilevante è il più piccolo dei due, e si può caratterizzare come limite delle iterate \(\Pi_n = f(\Pi_{n-1})\).</li>
+        <li>Se \(\mu < 1\), allora \(\Pi = 1\): l'estinzione è certa.</li>
+      </ul>
+      <p>Nessuna di queste conclusioni dipende dai dettagli fini della distribuzione di \(X\): tutto ciò che conta, in questo confronto, è il valore medio \(\mu\).</p>
+    </div>
+
+    <h3 class="sub">Il caso critico μ = 1</h3>
+    <div class="prose">
+      <p>Il caso \(\mu = 1\) è più delicato, perché il grafico di \(f\) è tangente alla bisettrice esattamente in \(v=1\) e la semplice lettura grafica non basta a distinguere i due comportamenti. Per escludere il caso banale \(\mathbb{P}(X=1)=1\) (in cui la colonia non si estingue né cresce mai, restando costante), consideriamo un esempio concreto:</p>
+      <div class="eq center">\(\mathbb{P}(X=0) = \mathbb{P}(X=2) = \tfrac{1}{2} \quad \Longrightarrow \quad \mathbb{E}[X] = 1\)</div>
+      <p>Per studiare l'andamento di \(Z_n\) conviene introdurre il processo ausiliario a media nulla \(W_n = Z_n - 1\), così che \(\mathbb{E}[W_n] = 0\) per ogni \(n\). L'idea è che, se la colonia sopravvivesse a lungo, \(W_n\) dovrebbe comunque oscillare attorno a zero — e prima o poi toccare la soglia \(-1\), che corrisponde esattamente a \(Z_n = 0\): l'estinzione. Questa intuizione, resa rigorosa con gli strumenti delle passeggiate aleatorie, è ciò che permette di concludere che anche nel caso critico \(\mu=1\) l'estinzione è certa.</p>
+      <div class="marginnote"><span class="tag">Da sviluppare</span>La formalizzazione completa dell'argomento — che richiede risultati sulle passeggiate aleatorie a media nulla — è rimandata a una nota successiva.</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ======================= PARTE II ======================= -->
+  <section class="part" id="misura">
+    <div class="part-heading">
+      <span class="roman">Parte II</span>
+      <h2>Algebre e σ-algebre</h2>
+    </div>
+
+    <div class="prose">
+      <p>Il calcolo con la funzione generatrice ci ha permesso di rispondere a una domanda concreta senza mai chiederci, esplicitamente, "che cos'è" una probabilità dal punto di vista formale. Per costruire la teoria in modo rigoroso occorre invece fissare con precisione su quali sottoinsiemi di un insieme di esiti sia lecito calcolare una probabilità. È qui che entrano in gioco le algebre e le σ-algebre: le strutture che isolano le famiglie di insiemi "misurabili", cioè a cui è possibile assegnare una probabilità in modo coerente.</p>
+    </div>
+
+    <h3 class="sub">Algebre di insiemi</h3>
+    <div class="prose">
+      <div class="def">
+        <span class="tag">Definizione</span>
+        Sia \(S\) un insieme e \(\Sigma_0\) una collezione di sottoinsiemi di \(S\). Diciamo che \(\Sigma_0\) è un'<strong>algebra</strong> su \(S\) se:
+        <ol type="i">
+          <li>\(S \in \Sigma_0\);</li>
+          <li>\(\forall A \in \Sigma_0 \implies A^c = S \setminus A \in \Sigma_0\) (chiusura per complemento);</li>
+          <li>\(\forall F, G \in \Sigma_0 \implies F \cup G \in \Sigma_0\) (chiusura per unione finita).</li>
+        </ol>
+      </div>
+
+      <p>Da questi tre assiomi seguono immediatamente altre due proprietà, spesso altrettanto utili quanto gli assiomi stessi:</p>
+      <ol type="a">
+        <li>\(\emptyset \in \Sigma_0\), poiché \(\emptyset = S^c\) (da (i) e (ii));</li>
+        <li>\(\forall F, G \in \Sigma_0 \implies F \cap G \in \Sigma_0\) (da (ii) e (iii)). Infatti, per le leggi di De Morgan:
+          <div class="eq">\(F, G \in \Sigma_0 \implies F^c, G^c \in \Sigma_0 \implies F^c \cup G^c \in \Sigma_0 \implies \underbrace{(F^c \cup G^c)^c}_{=\, F \cap G} \in \Sigma_0\)</div>
+        </li>
+      </ol>
+      <p>Un'algebra è dunque chiusa rispetto a tutte le operazioni insiemistiche <em>finite</em>: complementi, unioni e intersezioni finite restano sempre dentro la famiglia. Ciò che manca, per la probabilità, è la chiusura rispetto a operazioni <em>numerabili</em> — indispensabile non appena si vogliano trattare limiti di eventi, come accade con la probabilità di estinzione \(\Pi\) della Parte I, definita come unione numerabile \(\bigcup_{n\ge1}\{Z_n=0\}\).</p>
+    </div>
+
+    <h3 class="sub">σ-algebre</h3>
+    <div class="prose">
+      <div class="def">
+        <span class="tag">Definizione</span>
+        Sia \(S\) un insieme e \(\Sigma\) una collezione di sottoinsiemi di \(S\). Diciamo che \(\Sigma\) è una <strong>σ-algebra</strong> su \(S\) se:
+        <ol type="i">
+          <li>\(\Sigma\) è un'algebra;</li>
+          <li>per ogni successione \(\{F_n\}_{n\ge1}\) di elementi di \(\Sigma\), \(\displaystyle\bigcup_{n=1}^{\infty} F_n \in \Sigma\) (chiusura per unione numerabile).</li>
+        </ol>
+      </div>
+
+      <div class="marginnote"><span class="tag">Nota a margine</span>Uno spazio vettoriale è un insieme dotato di un'operazione binaria bilineare su un campo. L'osservazione, isolata nel testo originale, sembra un promemoria a margine più che parte diretta della definizione — la lascio qui per fedeltà alle note, sebbene il collegamento con le σ-algebre non venga esplicitato.</div>
+
+      <p>Combinando la chiusura per unione numerabile con quella per complemento, ancora tramite le leggi di De Morgan, si ottiene la chiusura anche per <strong>intersezione numerabile</strong>:</p>
+      <div class="eq center">\(\{F_n\}_{n\ge1} \subset \Sigma \implies \bigcap_{n=1}^{\infty} F_n \in \Sigma\)</div>
+      <p>con lo stesso argomento visto sopra per le algebre, applicato questa volta a una successione numerabile invece che a una coppia di insiemi.</p>
+
+      <div class="callout">
+        <span class="tag">Definizione</span>
+        La coppia \((S, \Sigma)\), dove \(\Sigma\) è una σ-algebra su \(S\), è detta <strong>spazio misurabile</strong>. Ogni elemento di \(\Sigma\) è detto insieme <strong>misurabile</strong> (o \(\Sigma\)-misurabile).
+      </div>
+      <p>È su uno spazio misurabile — non su un generico insieme di parti — che una misura di probabilità viene poi definita: solo agli insiemi misurabili è garantito che l'assegnazione di una probabilità sia coerente rispetto a unioni e intersezioni numerabili, l'operazione che serve, ad esempio, per dare senso a eventi come "la colonia si estingue prima o poi".</p>
+    </div>
+
+    <h3 class="sub">σ-algebra generata</h3>
+    <div class="prose">
+      <p>Nella pratica raramente si costruisce una σ-algebra elencandone gli elementi uno a uno; più spesso si parte da una collezione di insiemi "interessanti" — ad esempio gli intervalli aperti di \(\mathbb{R}\) — e si chiede quale sia la più piccola σ-algebra che li contiene tutti.</p>
+
+      <div class="def">
+        <span class="tag">Definizione</span>
+        Sia \(\mathcal{C}\) una collezione di sottoinsiemi di \(S\). Si definisce
+        <div class="eq center">\(\sigma(\mathcal{C}) = \text{la più piccola σ-algebra su } S \text{ che contiene } \mathcal{C}\)</div>
+        detta la <strong>σ-algebra generata</strong> da \(\mathcal{C}\).
+      </div>
+
+      <p>L'esistenza di \(\sigma(\mathcal{C})\) non è un fatto ovvio a priori, ma si giustifica facilmente: l'intera collezione delle parti di \(S\), \(\mathcal{P}(S)\), è essa stessa una σ-algebra contenente \(\mathcal{C}\), e l'intersezione di una qualunque famiglia di σ-algebre è ancora una σ-algebra. Si può quindi scrivere</p>
+      <div class="eq center">\(\sigma(\mathcal{C}) = \bigcap_{i} \Sigma_i, \qquad \text{dove ogni } \Sigma_i \text{ è una σ-algebra con } \mathcal{C} \subseteq \Sigma_i\)</div>
+      <p>cioè come intersezione di <em>tutte</em> le σ-algebre che contengono \(\mathcal{C}\) — a partire, nel caso peggiore, da \(\mathcal{P}(S)\) stessa. Proprio perché si tratta di un'intersezione così ampia di famiglie, in generale \(\sigma(\mathcal{C})\) non sarà affatto una collezione "piccola": la σ-algebra di Borel su \(\mathbb{R}\), generata dagli intervalli aperti, è un esempio che incontreremo presto e che contiene ben più che semplici intervalli.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    Note di corso — Teoria della Probabilità. Trascrizione e riorganizzazione di appunti personali.
+  </div>
+</footer>
+
+</body>
+</html>
