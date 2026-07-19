@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Trascrizione Appunti di Probabilità</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f7f9fa;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .page {
+            background-color: #ffffff;
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: relative;
+            border-left: 5px solid #0056b3;
+        }
+        .page-number {
+            position: absolute;
+            bottom: 15px;
+            right: 20px;
+            font-size: 0.9em;
+            color: #888;
+            font-weight: bold;
+        }
+        h2 {
+            color: #0056b3;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+        .note {
+            background-color: #eef4fa;
+            padding: 10px 15px;
+            border-left: 3px solid #007bff;
+            margin: 10px 0;
+            font-style: italic;
+        }
+        .diagram-placeholder {
+            border: 2px dashed #bbb;
+            padding: 20px;
+            text-align: center;
+            background-color: #fafafa;
+            margin: 20px 0;
+            font-family: monospace;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PAGINA 17 -->
+    <div class="page">
+        <h2>Esempio: Modello su evoluzione colonia di batteri</h2>
+        <p>1 Batterio &rarr; capostipite &rarr; numero aleatorio di figli</p>
+        
+        <div class="note">
+            (Un individuo può non riprodursi.)
+        </div>
+        
+        <p style="margin-left: 200px;">
+            &darr;<br>
+            ciascuno si riproduce con la stessa distribuzione indipendentemente.
+        </p>
+
+        <p><strong>Cosa possiamo dire a lungo termine?</strong></p>
+        <p>\(X\) con una distribuzione su \(\mathbb{Z}_+\) &rarr; interi non negativi</p>
+        
+        <div class="page-number">pag 17</div>
+    </div>
+
+    <!-- PAGINA 18 -->
+    <div class="page">
+        <p>Supponiamo \(\mathbb{P}(X=0) > 0\)</p>
+        <p>Se tutte le particelle si riproducono con tale distribuzione cosa possiamo dire sulla colonia dopo un lungo tempo? (Questo è il topic).</p>
+        
+        <h3>Definiamo la funzione generatrice</h3>
+        <p>
+            \(f: [0, 1] \longrightarrow [0, 1]\)<br>
+            \(v \longrightarrow f(v)\)
+        </p>
+        <p>come \(f(v) = \mathbb{E}(v^X) = \sum_{k \ge 0} v^k \mathbb{P}(X=k)\)</p>
+        <p><em>(Sotto \(\mathbb{E}(v^X)\) c'è una freccia con scritto: "valore atteso")</em></p>
+        <p><em>(Sotto la sommatoria c'è una freccia con scritto: "perché \(X \in \mathbb{Z}_+\)")</em></p>
+
+        <p>Derivando in \(v\): \(f'(v) = \mathbb{E}[X \cdot v^{X-1}]\)</p>
+        <p>\(f'(1) = \mathbb{E}[X] = \mu\) &rarr; è la media.</p>
+
+        <p>\(f(1) = \sum_{k \ge 0} \mathbb{P}(X=k) = 1\) &rarr; <span class="note" style="display:inline-block; margin:0;">Sommo su tutti i valori che \(X\) possa assumere.</span></p>
+
+        <p>\(Z_n\) = # individui presenti alla generazione \(n \ge 0\).</p>
+        <p>Un capostipite \(Z_0 = 1\).</p>
+        <p>Dobbiamo formalizzare il problema.</p>
+        
+        <div class="page-number">pag 18</div>
+    </div>
+
+    <!-- PAGINA 19 -->
+    <div class="page">
+        <h3>Successione di variabili aleatorie:</h3>
+        <p>\(\{ X_r^{(m+1)} : \begin{matrix} m \ge 0 \\ r \ge 1 \end{matrix} \}\) t.c. \(\forall r, m \quad X_r^{(m+1)}\) ha la stessa distribuzione di \(X\) e queste variabili sono tutte indipendenti.</p>
+        
+        <p><strong>Cosa rappresentano?</strong></p>
+        <p>\(X_r^{(m+1)}\) = # di figli dell'individuo \(r\)-esimo presente della generazione \(m\).</p>
+        <p style="margin-left: 40px;">&rarr; C'è \(m+1\) perché i personaggi già sotto saranno vivi alla generazione \(m+1\) (sono i figli)</p>
+
+        <div class="diagram-placeholder">
+            [Rappresentazione ad albero nel testo]<br>
+            Z_0 = 1 (Capostipite)<br>
+            &darr;<br>
+            Z_1 = X_1^(1) (unico presente a m=0)<br>
+            &swarr; &darr; &searr;<br>
+            Figli del primo individuo della generazione 1: X_1^(2), X_2^(2)=0, X_3^(2), X_4^(2)<br>
+            Tutte variabili aleatorie indipendenti e con la stessa distribuzione.
+        </div>
+
+        <p>Per il # di individui al passo due, basta sommare \(Z_2 = X_1^{(2)} + X_2^{(2)} + X_3^{(2)} + X_4^{(2)}\)</p>
+        <p>\(Z_{n+1} = X_1^{(n+1)} + X_2^{(n+1)} + \dots + X_{Z_n}^{(n+1)}\)</p>
+        <p style="margin-left: 200px;">&uarr; ultimo individuo delle precedente generazione</p>
+        
+        <p>Se non ha individui la colonia rimane estinta.</p>
+        
+        <div class="page-number">pag 19</div>
+    </div>
+
+    <!-- PAGINA 20 -->
+    <div class="page">
+        <h3>Funzione generatrice di \(Z_n\)</h3>
+        <p>Definiamo: \(\forall n \ge 1 \quad f_n(v) = \mathbb{E}[v^{Z_n}]\)</p>
+        <p>(Quello di prima era \(f_1(v)\) perché qui \(X_1^{(1)}\) ha la stesso distribuzione di \(X\)) &nbsp; (\(f(v) = f_1(v) \quad \forall v \in [0, 1]\))</p>
+        
+        <p>\(f_n(v) = \sum_{k \ge 0} v^k \mathbb{P}(Z_n = k)\)</p>
+
+        <p><strong>Affermazione (verrà dimostrata):</strong> <span style="color:red;">&lowast;</span><br>
+        \(\forall n \ge 2 \quad f_n(v) = f_{n-1}(f(v)) = f(f_{n-1}(v))\)<br>
+        \(\forall v \in [0, 1]\)</p>
+        <p>dove \(f_n = \underbrace{f \circ f \circ \dots \circ f}_{n \text{ volte}}\) &emsp; &rarr; Poi lo vedremo.</p>
+
+        <p><strong>Cosa succede per \(n\) grande (tempo lungo)?</strong><br>
+        Dobbiamo introdurre la probabilità di estinzione del processo:</p>
+        
+        <p style="text-align: center; font-size: 1.2em;">\(\Pi = \mathbb{P}(\exists n \ge 1 \text{ t.c. } Z_n = 0)\)</p>
+        <p><em>(Sotto \(\Pi\) c'è scritto "probabilità di estinzione"; a destra c'è una freccia con scritto "Probabilità che \(\exists n \ge 1\) t.c. \(Z_n = 0\)")</em></p>
+
+        <p>\(\forall n \ge 1\) definiamo \(\Pi_n = \mathbb{P}(Z_n = 0)\)</p>
+        <p>Quindi \(\Pi = \mathbb{P}\left( \bigcup_{n \ge 1} \{Z_n = 0\} \right)\) &rarr; Risritto insiemisticamente</p>
+
+        <div class="page-number">pag 20</div>
+    </div>
+
+    <!-- PAGINA 21 -->
+    <div class="page">
+        <p>\(f_n(0) = \mathbb{P}(Z_n = 0) = \Pi_n\)</p>
+        <p style="margin-left: 40px;">
+            &darr;<br>
+            \(\forall k \ge 1 \quad 0^k = 0\)<br>
+            unico problema \(k=0\)<br>
+            per convenzione \(0^0 = 1\)
+        </p>
+
+        <p>Per l'affermazione <span style="color:red;">&lowast;</span>:</p>
+        <p>\(\Pi_n = f_n(0) = f(f_{n-1}(0)) = f(\Pi_{n-1})\)</p>
+
+        <p><strong>Fatto (dimostreremo poi):</strong></p>
+        <p>\(\lim_{n \to \infty} \Pi_n = \Pi \qquad\) (\(f\) è continua)</p>
+        <p>Passando al \(\lim_{n \to \infty}\) si ha che: \(\Pi = f(\Pi)\)</p>
+        <p style="margin-left: 250px;">&uarr; Punto fisso di \(f\).</p>
+
+        <p>Quindi: \(f(1)=1 \quad ; \quad f'(1) = \mathbb{E}[X] = \mu \quad ; \quad f(0) = \mathbb{P}(Z_1 = 0) > 0\)</p>
+        <p style="margin-left: 380px;">&uarr; (\(f(v) = f_1(v)\))</p>
+
+        <p>\(f\) è non decrescente, analitica e convessa.</p>
+
+        <div class="diagram-placeholder">
+            [Grafici di f(v) rispetto alla bisettrice]<br>
+            Grafico 1: visto che f(1)=1, punti fissi 0, \(\Pi\) e 1. Perché \(\mu > 1\) e f'(1)=\(\mu\). Per le proprietà di f. Sappiamo f(0)>0. Supponiamo che \(\mu > 1\) (sempre > 0 qui).<br>
+            Grafico 2: Se \(\mu \le 1\). Unico pto fisso 1. neanche \(\mu=0\) a meno che P(Z_1=0)=1 qua niente processo.
+        </div>
+
+        <div class="page-number">pag 21</div>
+    </div>
+
+    <!-- PAGINA 22 -->
+    <div class="page">
+        <p><strong>Il grafico a sx ci dice:</strong></p>
+        <ul>
+            <li>Se \(\mu > 1 \implies \Pi < 1\) quindi \(\mathbb{P}(\text{processo sopravviva per tempo infinito}) > 0\)<br>
+            punto fisso più piccolo &rarr; \(1 - \Pi\). Si fa con le iterate.</li>
+            <li>Se \(\mu < 1 \implies \Pi = 1\) , \(\mathbb{P}(\text{estinzione}) = 1\)</li>
+        </ul>
+
+        <p>Non abbiamo detto nulla sulla distribuzione.</p>
+        <p>(\(\mu \to\) media dei discendenti di ciascuna particella)</p>
+        
+        <p><strong>Per \(\mu = 1\), \((\mathbb{P}(X=0) > 0)\)</strong></p>
+        <p style="margin-left: 40px;">&rarr; Non si vuole il processo banale \(\mathbb{P}(X=1) = 1\) (questo non si estingue).</p>
+
+        <p>Suppongo che \(\mathbb{P}(X=0) = \mathbb{P}(X=2) = \frac{1}{2}\)</p>
+        <p>\(\mathbb{E}X = 1 \quad ; \quad Z_n\) individui</p>
+
+        <p>Introduco \(W_n = Z_n - 1 \qquad \forall n \cdot \mathbb{E}W_n = 0\)<br>
+        &darr;<br>
+        processo ausiliario</p>
+
+        <div class="diagram-placeholder">
+            [Grafico di W_n che oscilla nel tempo]<br>
+            Suppongo sopravviva per molto.<br>
+            Dovrà scendere perché è a media nulla.<br>
+            Se tocca la soglia -1 vuol dire che Z_n = 0.
+        </div>
+
+        <div class="page-number">pag 22</div>
+    </div>
+
+    <!-- PAGINA 23 -->
+    <div class="page">
+        <h2>Definizioni:</h2>
+        <p><strong>Def:</strong> Sia \(S\) un insieme e \(\Sigma_0\) una collezione di sottoinsiemi di \(S\). Allora \(\Sigma_0\) è un'algebra di \(S\) se:</p>
+        <ol type="i">
+            <li>\(S \in \Sigma_0\).</li>
+            <li>\(\forall A \in \Sigma_0 \implies A^c = S \setminus A \in \Sigma_0\).</li>
+            <li>\(\forall F, G \in \Sigma_0 \implies F \cup G \in \Sigma_0\) &rarr; (qui unione finita)</li>
+        </ol>
+
+        <p><strong>Conseguenza:</strong></p>
+        <ol type="a">
+            <li>\(\emptyset \in \Sigma_0\) in quanto è \(\emptyset = S^c\) (da i e ii)</li>
+            <li>\(\forall F, G \in \Sigma_0 \implies F \cap G \in \Sigma_0\) (da ii e iii)<br>
+            infatti: \(F, G \in \Sigma_0 \implies F^c, G^c \in \Sigma_0 \implies F^c \cup G^c \in \Sigma_0 \implies \underbrace{(F^c \cup G^c)^c}_{F \cap G} \in \Sigma_0\) (da iii)</li>
+        </ol>
+
+        <p><strong>Def:</strong> Sia \(S\) un insieme e sia \(\Sigma\) una collezione di sottoinsiemi di \(S\). Allora \(\Sigma\) è una \(\sigma\)-algebra su \(S\) se:</p>
+        <ol type="i">
+            <li>\(\Sigma\) è un'algebra;</li>
+            <li>\(\forall \{F_n\}_n \in \Sigma \implies \bigcup_{n=1}^{\infty} F_n \in \Sigma\) <br>
+            \(L\rightarrow\) successione di elementi in \(\Sigma\)</li>
+        </ol>
+        <p style="margin-left: 300px; font-size: 0.85em; color: #555;">
+            <em>[Nota a margine:] Spazio vettoriale su un campo dotato di un'operazione binaria che sia bilineare.</em>
+        </p>
+
+        <p>Queste due \(\implies \bigcap_{n=1}^{\infty} F_n \in \Sigma\)</p>
+        <p>Stesso ragionamento di prima.</p>
+
+        <div class="page-number">pag 23</div>
+    </div>
+
+    <!-- PAGINA 24 -->
+    <div class="page">
+        <p><strong>Def:</strong> \((S, \Sigma)\) è detto spazio misurabile.<br>
+        &emsp; \(\llcorner\) \(\sigma\)-algebra</p>
+        <p>Ed ogni elemento di \(\Sigma\) è detto insieme misurabile (o \(\Sigma\)-misurabile).</p>
+
+        <p><strong>Def:</strong> Sia \(\mathcal{C}\) una collezione di insiemi. Allora definiamo:<br>
+        \(\sigma_{(\mathcal{C})}\) = la più piccola \(\sigma\)-algebra che contiene tutti gli elementi di \(\mathcal{C}\).</p>
+        
+        <p>Si può pensare: \(\sigma_{(\mathcal{C})} = \bigcap_{i} \Sigma_i \qquad\) dove tutte le \(\Sigma_i\) contengono \(\mathcal{C}\).</p>
+        <p>(Essendo una \(\sigma\)-algebra non sarà molto piccola).</p>
+
+        <p>\(\sigma_{(\mathcal{C})}\) è detta la \(\sigma\)-algebra generata dalla collezione \(\mathcal{C}\).</p>
+
+        <div class="page-number">pag 24</div>
+    </div>
+
+</body>
+</html>
